@@ -7,7 +7,7 @@ class delivery_man(models.Model):
          settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         limit_choices_to={'role':'delivery'}
-    )
-
+    ) 
+ 
     is_available=models.BooleanField(default=False)
     current_location=models.TextField()

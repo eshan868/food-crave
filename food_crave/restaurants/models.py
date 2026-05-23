@@ -3,7 +3,7 @@ from django.conf import settings
 # Create your models here.
 
 
-class Restaurant(models.Model):
+class Restaurant(models.Model):  
     owner=models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
