@@ -1,49 +1,45 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
 
-# Virtual Environment
+
 venv/
 env/
 ENV/
 
-# Django
+
 *.log
 db.sqlite3
 media/
 
-# Static files collected by collectstatic
 staticfiles/
 
-# Environment variables
+
 .env
 
-# VS Code
+
 .vscode/
 
-# PyCharm
 .idea/
 
 
 
-# OS files
+
 .DS_Store
 Thumbs.db
 
-# Testing
 .coverage
 htmlcov/
 .pytest_cache/
 
-# Byte-compiled / optimized files
+
 *.pyo
 *.pyd
 
-# Distribution
+
 build/
 dist/
 *.egg-info/
 
-# Node modules (if React later)
+
 node_modules/
+
+__pycache__/
+*.pyc

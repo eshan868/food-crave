@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'delivery',
     'orders',
-    'resturants',
+    'restaurants',
     
 ]
 
@@ -79,9 +79,12 @@ WSGI_APPLICATION = 'food_crave.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'food_crave',
+        'HOST':'localhost',
+        'PORT':'5432',
+        'USER':'postgres',
+        'PASSWORD' :'80808080' }
 }
 
 
@@ -103,6 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -121,10 +125,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS=[
-    BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
 ]
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = BASE_DIR / 'media'

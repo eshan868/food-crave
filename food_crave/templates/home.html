@@ -1,0 +1,141 @@
+{% extends 'layout/base_layout.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<main class="container">
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Satisfy your cravings instantly.
+            </h1>
+
+            <p>
+                Discover the best restaurants
+                near your location.
+            </p>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search foods..."
+                >
+
+                <button
+                    class="btn"
+                    id="search-btn"
+                >
+                    Find Food
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+                alt="food"
+            >
+
+        </div>
+
+    </section>
+
+    <section class="menu-section">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Trending Foods
+            </h2>
+
+            <a href="#" class="view-all">
+                View All →
+            </a>
+
+        </div>
+
+        <div class="grid">
+
+            <div class="food-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
+                >
+
+                <div class="card-content">
+
+                    <h3>Italian Pizza</h3>
+
+                    <p>
+                        Loaded with cheese
+                        and fresh toppings.
+                    </p>
+
+                    <button class="btn">
+                        Order Now
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="food-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
+                >
+
+                <div class="card-content">
+
+                    <h3>Burger Combo</h3>
+
+                    <p>
+                        Crispy burger with fries.
+                    </p>
+
+                    <button class="btn">
+                        Order Now
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="food-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
+                >
+
+                <div class="card-content">
+
+                    <h3>Healthy Salad</h3>
+
+                    <p>
+                        Fresh and healthy meal.
+                    </p>
+
+                    <button class="btn">
+                        Order Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}

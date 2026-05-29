@@ -1,0 +1,32 @@
+.hero {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+
+    gap: 60px;
+
+    padding: 80px 0;
+}
+
+.hero-content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.hero-content h1 {
+    font-size: 62px;
+    line-height: 1.1;
+    margin-bottom:24px;
+    font-weight: 800;
+    letter-spacing: -2px;
+
+}
