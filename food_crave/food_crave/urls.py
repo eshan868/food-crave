@@ -20,7 +20,7 @@ from accounts import views
 from delivery import views as dv
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('', views.home,name='home'),
     path('food/', dv.food_display,name="food"),
     path('food-detail/', dv.food_detail,name="food_detail"),
     path('accounts/', include('accounts.urls')),
