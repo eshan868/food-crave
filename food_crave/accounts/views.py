@@ -28,7 +28,48 @@ def register(request):
 
     return render(request,'accounts/register.html',{'form':form})
 
+def login(request):
+    form=Login()
+    if request.method == 'POST':
+        form=Login(request.POST)
 
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+
+            user=authenticate(
+                request,
+                username=username,
+                password=password
+
+            )
+            print("Form Valid:", form.is_valid())
+            print("Username:", username)
+            print("User:", user)
+
+            if user is not None:
+                authlogin(request,user)
+                if user.role == 'customer':
+                    return redirect('user-dashboard')
+                if user.role == 'delivery_man':
+                    return redirect('delivery-man-dashboard')
+                if user.role == 'restaurant_owner':
+                    return redirect('restaurant-owner-dashboard')
+                
+
+                
+            else:
+                
+                return render(
+                    request,
+                    'accounts/login.html',
+                    {
+                        'form': form,
+                        'error': 'Invalid Username or Password'
+                    }
+                )
+      
+    return render(request,'accounts/login.html',{'form':form})
 def customer_dashboard(request):
 
     return render(request,'user/user-dashboard')
