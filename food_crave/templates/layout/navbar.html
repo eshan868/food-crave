@@ -1,32 +1,56 @@
-<header>
+<header> 
 
     <div class="container navbar">
 
-        <a href="/" class="logo">
-            Food Crave
-        </a>
+        <a href="{% url 'home' %}" class="logo"> 🍔 Food Crave </a>
+
+
 
         <nav class="nav-links">
 
-            <a href="/">Home</a>
+            <a href="{% url 'home' %}">Home</a>
 
-            <a href="#">Menu</a>
+            <a href="{% url 'food'}"> Menue</a>
 
-            <a href="#">Restaurants</a>
+            <a href="{% url 'crat'} ">Cart</a>
 
-            <a href="#">Contact</a>
+            <a href="{% url 'order_history'}">Orders</a>
+
+            <a href="{% url 'contact' %}">Contact</a>
+
+
 
         </nav>
 
+
+
         <div class="auth-buttons">
 
-            <button class="btn-text">
-                Login
-            </button>
+            {% if user.is_authenticated %}
 
-            <button class="btn-small">
-                Sign Up
-            </button>
+
+
+            <span class="welcome-user"> Hello, {{user.username}}</span>
+
+            <a href="{% url 'profile'}"><button class="btn-text"> Profile</button></a>
+
+             <a href="{% url 'logout' %}"><button class="btn-small">Logout</button></a>
+
+
+
+            {% else %}
+
+
+
+                <a href="{% url 'login' %}"><button class="btn-text">Login</button></a>
+
+                <a href="{% url 'register' %}"><button class="btn-small">Sign Up</button></a>
+
+
+
+            {% endif %}
+
+
 
         </div>
 

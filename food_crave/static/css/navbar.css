@@ -85,3 +85,18 @@ header{
 .btn-small.logo:hover{
     background: var(primary);
 }
+.welcome-user {
+    font-weight: 600;
+    color: var(--dark);
+    margin-right: 10px;
+}
+
+.auth-buttons a {
+    text-decoration: none;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
