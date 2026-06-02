@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from . models import User
-
+from django import forms
 class register_user(ModelForm):
     class Meta:
 
@@ -13,15 +13,11 @@ class register_user(ModelForm):
             'address',   
             'profile_picture',
             'password',
-            
+            'role',  
+             
         ] 
-class login(ModelForm):
-    class Meta:
-  
-        model=User
-
-        fields=[
-            'username',
-            'password',
-        ]
-
+class Login(forms.Form):
+    username = forms.CharField()   
+    password=forms.CharField(
+        widget=forms.PasswordInput()
+    )
