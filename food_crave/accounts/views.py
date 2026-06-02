@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from . forms import register_user,Login  
-from django.contrib.auth import authenticate ,login as authlogin
+from django.contrib.auth import authenticate ,login as authlogin,logout
 # Create your views here.
 def home(request): 
 
@@ -50,7 +50,7 @@ def login(request):
             if user is not None:
                 authlogin(request,user)
                 if user.role == 'customer':
-                    return redirect('user-dashboard')
+                    return redirect('customer-dashboard')
                 if user.role == 'delivery_man':
                     return redirect('delivery-man-dashboard')
                 if user.role == 'restaurant_owner':
@@ -70,6 +70,13 @@ def login(request):
                 )
       
     return render(request,'accounts/login.html',{'form':form})
+
 def customer_dashboard(request):
 
-    return render(request,'user/user-dashboard')
+    return render(request,'user/user_dashboard.html')
+
+
+def  user_logout(request):
+    logout(request)
+
+    return redirect('login')

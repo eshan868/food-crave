@@ -1,0 +1,15 @@
+{% extends 'layout/base_layout.html' %}
+
+{% block content %}
+<div>
+<h1>ADD FOOD ITEMM</h1>
+   <form method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+
+        {{form.as_p}}
+
+        <button type="submit">add food </button>
+    </form>
+</div>
+{% endblock %}
+
