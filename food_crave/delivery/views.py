@@ -9,13 +9,4 @@ def new_orders(request):
 
     return render(request,'delivery/new_orders.html')
 
-def food_display(request):
-
-    return render(request,'food_items/food_display.html')
-
-def food_detail(request):
-
-    return render(request,'food_items/food_detail.html')
-
-
 

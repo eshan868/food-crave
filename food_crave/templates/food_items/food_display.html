@@ -1,0 +1,8 @@
+<h1>best food for best day </h1>
+
+{% for food in foods %}
+    <img src="{{food.food_image.url}}" >
+    <h2>{{ food.food_name }}</h2>
+    <p>₹{{ food.price }}</p>
+
+{% endfor %}
