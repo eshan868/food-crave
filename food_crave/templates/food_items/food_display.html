@@ -1,8 +1,14 @@
-<h1>best food for best day </h1>
+        <h1>best food for best day </h1>
 
-{% for food in foods %}
-    <img src="{{food.food_image.url}}" >
-    <h2>{{ food.food_name }}</h2>
-    <p>₹{{ food.price }}</p>
+        {% for food in foods %}
+            <img src="{{food.food_image.url}}" >
+            <h2>{{ food.food_name }}</h2>
+            <p>₹{{ food.price }}</p>
+            <form action="{% url 'add_to_cart' %}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <input type="hidden" name="food_id" value="{{food.id}}">
+                <input type="number" name="quantity" value="1">
+            <button type="submit">Add to cart</button>
+            </form>
 
-{% endfor %}
+        {% endfor %}

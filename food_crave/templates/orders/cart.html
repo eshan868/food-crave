@@ -1,0 +1,24 @@
+<h1>Your Cart</h1>
+
+{% for item in items %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <img src="{{ item.food_item.food_image.url }}" width="80" height="80">
+        <h3>{{ item.food_item.food_name }}</h3>
+
+        <p>Price: ₹{{ item.food_item.price }}</p>
+
+        <p>Quantity: {{ item.quantity }}</p>
+
+         <p><b>Total: ₹{{ item.quantity|floatformat:0|add:item.food_item.price }}</b></p>
+
+        <a href="{% url 'remove_from_cart' item.id %}">
+            Remove
+        </a>
+
+    </div>
+{% endfor %}
+
+<h2>Total: ₹{{ total }}</h2>
+<a href="{% url 'checkout' %}">
+    <button>Proceed to Checkout</button>
+</a>

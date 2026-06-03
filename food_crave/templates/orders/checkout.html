@@ -1,0 +1,24 @@
+<h1>Checkout</h1>
+
+{% for item in items %}
+    <div style="border:1px solid #ddd; padding:10px; margin:10px; display:flex; gap:15px; align-items:center;">
+
+        <img src="{{ item.food_item.food_image.url }}" width="80" height="80" style="object-fit:cover; border-radius:8px;">
+
+        <div>
+            <h3>{{ item.food_item.food_name }}</h3>
+            <p>Price: ₹{{ item.food_item.price }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p><b>Subtotal: ₹{{ item.subtotal }}</b></p>
+        </div>
+
+    </div>
+{% endfor %}
+
+<hr>
+
+<h2>Total Amount: ₹{{ total }}</h2>
+
+<button ">
+    Place Order
+</button>
