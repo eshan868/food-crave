@@ -22,6 +22,18 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
+    latitude = models.FloatField(
+        
+        null=True,
+        blank=True
+
+    )
+
+    longitude = models.FloatField(
+
+        null=True,
+        blank=True
+    )
     def __str__(self):
         return self.username
     
