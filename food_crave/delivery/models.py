@@ -10,4 +10,19 @@ class delivery_man(models.Model):
     )
 
     is_available=models.BooleanField(default=False)
-    current_location=models.TextField()
+    
+    current_latitude = models.FloatField(
+        null=True,
+        blank=True
+    )
+
+    current_longitude = models.FloatField(
+        null=True,
+        blank=True
+    )
+    last_location_update = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self):
+        return self.user.username

@@ -17,6 +17,15 @@ class Restaurant(models.Model):
         upload_to="media/restaurant_images/"
       
     )
+    latitude=models.FloatField(
+        null=True,
+        blank=True
+
+    )
+    longitude=models.FloatField(
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.shop_name
@@ -38,5 +47,6 @@ class food_items(models.Model):
            null=True,
            blank=True
     )
+
     def __str__(self):
         return self.food_name,self.price
