@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from . forms import register_user,Login  
-from django.contrib.auth import authenticate ,login as authlogin,logout
+from django.contrib.auth import authenticate ,login as authlogin
 # Create your views here.
 def home(request): 
 
@@ -16,11 +16,18 @@ def register(request):
         if form.is_valid():
             user = form.save(commit=False)
 
+            address=user.address
+            
+            lat,lng = geocode_address(address)
+
+            user.latitude = lat
+            user.longitude = lng
+
             user.set_password(
             form.cleaned_data['password']
 )
 
-            form.save()
+            user.save()
             print("User Saved Successfully")
             return redirect('login')
     else:
