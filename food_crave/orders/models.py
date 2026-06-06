@@ -57,6 +57,22 @@ class Order(models.Model):
         max_digits=10,
         decimal_places=2
     )
+    delivery_partner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='deliveries'
+    )
+
+    delivery_otp = models.CharField(
+        max_length=6,
+        blank=True
+    )
+
+    is_paid = models.BooleanField(
+        default=False
+    )
 
     status = models.CharField(
         max_length=20,

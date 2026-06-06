@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from orders.models import Order
 # Create your models here.
 
 class delivery_man(models.Model):
@@ -26,3 +27,27 @@ class delivery_man(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+
+
+
+class DeliveryAssignment(models.Model):
+
+    order = models.OneToOneField(
+        Order,
+        on_delete=models.CASCADE
+    )
+
+    delivery_man = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    assigned_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    accepted = models.BooleanField(
+        default=False
+    )
