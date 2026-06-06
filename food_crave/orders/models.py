@@ -57,6 +57,11 @@ class Order(models.Model):
         max_digits=10,
         decimal_places=2
     )
+    delivery_fee = models.DecimalField(
+    max_digits=8,
+    decimal_places=2,
+    default=0
+    )
     delivery_partner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
