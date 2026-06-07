@@ -19,6 +19,7 @@
 
 <h2>Total Amount: ₹{{ total }}</h2>
 
-<button ">
-    Place Order
-</button>
+<form method="post" enctype="multipart/form-data" action="{% url 'place_order' %}">
+    {% csrf_token %}
+    <button type="submit">place order</button>
+</form>

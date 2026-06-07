@@ -1,15 +1,20 @@
-from geopy.geocoders import nominatim
+from math import radians, sin, cos, sqrt, atan2
 
-def geocode_address(address):
+def calculate_distance( lat1,lon1,lat2,lon2):
 
-    geolocator=nominatim(user_agent="food_crave")
+    R = 6371
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
 
-    location = geolocator.geocode(address)
-    
-    if location:
-        
-        return(
-            location.latitude,
-            location.longitude   
-            )
-    return(None,None)
+    a = (
+        sin(dlat / 2) ** 2
+        + cos(radians(lat1))
+        * cos(radians(lat2))
+        * sin(dlon / 2) ** 2
+    )
+    c = 2 * atan2(
+        sqrt(a),
+        sqrt(1 - a)
+    )
+
+    return R * c

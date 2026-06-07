@@ -7,7 +7,17 @@
 
     <p>Status: {{ order.status }}</p>
 
-    <p>Total: ₹{{ order.total_price }}</p>
+    <p>
+       Delivery Charge:
+       ₹{{ order.delivery_fee }}
+    </p>
+
+    <p>
+        Total:
+        ₹{{ order.total_price|add:order.delivery_fee }}
+    </p>
+
+   
 
     <p>OTP: {{ order.delivery_otp }}</p>
 </div>

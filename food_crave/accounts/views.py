@@ -7,7 +7,7 @@ def home(request):
     return render(request,'home.html')
 def profile(request):
     return render(request,'accounts/profile.html')
-    return render(request,'accounts/profile.html')
+    
 
 def register(request):
    
@@ -15,17 +15,13 @@ def register(request):
         form=register_user(request.POST,request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-
-            address=user.address
-            
-            lat,lng = geocode_address(address)
-
-            user.latitude = lat
-            user.longitude = lng
-
+            latitude = request.POST.get("latitude")
+            longitude = request.POST.get("longitude")
+            user.latitude = latitude
+            user.longitude = longitude
             user.set_password(
             form.cleaned_data['password']
-)
+            )
 
             user.save()
             print("User Saved Successfully")

@@ -3,9 +3,26 @@
     {% csrf_token %}
 
     {{ form.as_p }}
+    <input type="hidden"name="latitude"id="latitude">
+    <input type="hidden"name="longitude"id="longitude">
 
     <button type="submit">
         Add Restaurant
     </button>
 
 </form>
+
+
+<script>
+
+navigator.geolocation.getCurrentPosition(function(position){
+
+    document.getElementById("latitude").value =
+    position.coords.latitude;
+
+    document.getElementById("longitude").value =
+    position.coords.longitude;
+
+});
+
+</script>

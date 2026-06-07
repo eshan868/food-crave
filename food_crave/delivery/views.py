@@ -1,12 +1,106 @@
 from django.shortcuts import render
-
+from . models import DeliveryAssignment
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
+from orders.models import Order
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 def delivery_dashboard(request):
+
     
-    return render(request,'delivery/delivery_dashboard.html')
+    assignments = Order.objects.filter(
+        delivery_partner=request.user
+    ).exclude(
+        status='delivered'
+    )
+
+
+    
+    return render(request,'delivery/delivery_dashboard.html',{'assignments':assignments})
+
+
+
+
 
 def new_orders(request):
 
-    return render(request,'delivery/new_orders.html')
+    orders = Order.objects.filter(
+        delivery_partner=None,
+        status='placed'
+    )
+
+    return render(request, 'delivery/new_orders.html', { 'orders': orders})
 
 
+
+
+def accept_order(request, order_id):
+
+    order = get_object_or_404(
+        Order,
+        id=order_id
+    )
+
+    if order.delivery_partner:
+        return redirect(
+            'new_orders'
+        )
+
+    order.delivery_partner = request.user
+
+    order.status = 'accepted'
+
+    order.save()
+    return redirect('delivery-man-dashboard')
+
+def picked_order(request, order_id):
+
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+        delivery_partner=request.user
+    )
+
+    order.status = 'picked'
+    order.save()
+
+    return redirect('delivery-man-dashboard')
+
+def verify_otp(request, order_id):
+
+    assignment = get_object_or_404(
+        DeliveryAssignment,
+        order_id=order_id,
+        delivery_man=request.user
+    )
+
+    entered_otp = request.POST.get('otp')
+
+    if entered_otp == assignment.order.delivery_otp:
+
+        assignment.order.status = 'delivered'
+        assignment.order.save()
+
+    return redirect('delivery-man-dashboard')
+
+@csrf_exempt
+def update_location(request):
+
+    if request.method == "POST":
+
+        data = json.loads(request.body)
+
+        request.user.latitude = data.get("latitude")
+        request.user.longitude = data.get("longitude")
+
+        request.user.save()
+
+        return JsonResponse({
+            "success": True
+        })
+
+    return JsonResponse({
+        "success": False
+    })
