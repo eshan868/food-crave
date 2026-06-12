@@ -1,27 +1,57 @@
+{% extends 'layout/base_layout.html' %}
 
-  <h1>Register</h1>
 
-<form method="post", enctype="multipart/form-data">
+{% block content %}
 
-    {% csrf_token %}
+<div class="container mt-5">
 
-    {{ form.as_p }}
-    <input type="hidden" name="latitude" id="latitude">
-    <input type="hidden" name="longitude" id="longitude">
+    <div class="row justify-content-center">
 
-    <button>Register</button>
-</form>  
+        <div class="col-md-5">
 
+            <div class="card shadow">
+
+                <div class="card-body">
+
+                    <h2 class="text-center mb-4">
+                        Register
+                    </h2>
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+                        <input type="hidden" name="latitude" id="latitude">
+                        <input type="hidden" name="longitude" id="longitude">
+
+
+                        <button class="btn btn-primary w-100">
+                            Register
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 <script>
-navigator.geolocation.getCurrentPosition(
-    function(position){
+    navigator.geolocation.getCurrentPosition(
+        function (position) {
 
-        document.getElementById("latitude").value =
-            position.coords.latitude;
+            document.getElementById("latitude").value =
+                position.coords.latitude;
 
-        document.getElementById("longitude").value =
-            position.coords.longitude;
-    }
-);
+            document.getElementById("longitude").value =
+                position.coords.longitude;
+        }
+    );
 </script>
 
+{% endblock %}

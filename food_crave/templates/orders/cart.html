@@ -1,24 +1,127 @@
-<h1>Your Cart</h1>
+{% extends 'layout/base_layout.html' %}
 
-{% for item in items %}
-    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-        <img src="{{ item.food_item.food_image.url }}" width="80" height="80">
-        <h3>{{ item.food_item.food_name }}</h3>
+{% block content %}
 
-        <p>Price: ₹{{ item.food_item.price }}</p>
+<div class="container mt-4">
 
-        <p>Quantity: {{ item.quantity }}</p>
+    <h2 class="mb-4">
+        My Cart
+    </h2>
 
-         <p><b>Total: ₹{{ item.quantity|floatformat:0|add:item.food_item.price }}</b></p>
+    <div class="row">
 
-        <a href="{% url 'remove_from_cart' item.id %}">
-            Remove
-        </a>
+        <div class="col-lg-8">
+
+            {% for item in items %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="row g-0">
+
+                    <div class="col-md-3">
+
+                        <img src="{{ item.food_item.food_image.url }}" class="img-fluid rounded-start" style="
+                                height:150px;
+                                width:100%;
+                                object-fit:cover;
+                            " alt="{{ item.food_item.food_name }}">
+
+                    </div>
+
+                    <div class="col-md-9">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between">
+
+                                <h4>
+                                    {{ item.food_item.food_name }}
+                                </h4>
+
+                                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">
+                                    Remove
+                                </a>
+
+                            </div>
+
+                            <p class="text-success fw-bold">
+                                ₹{{ item.food_item.price }}
+                            </p>
+
+                            <p>
+                                Quantity:
+                                <strong>{{ item.quantity }}</strong>
+                            </p>
+
+                            <h5>
+
+                                Total:
+                                ₹{% widthratio item.food_item.price 1 item.quantity %}
+
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="alert alert-warning">
+
+                Your cart is empty.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card shadow">
+
+                <div class="card-body">
+
+                    <h4>
+                        Order Summary
+                    </h4>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Items Total</span>
+
+                        <span>₹{{ total }}</span>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+
+                        <h5>Total</h5>
+
+                        <h5>₹{{ total }}</h5>
+
+                    </div>
+
+                    <a href="{% url 'checkout' %}" class="btn btn-success w-100 mt-3">
+                        Proceed To Checkout
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
-{% endfor %}
 
-<h2>Total: ₹{{ total }}</h2>
-<a href="{% url 'checkout' %}">
-    <button>Proceed to Checkout</button>
-</a>
+</div>
+
+{% endblock %}

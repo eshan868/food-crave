@@ -1,0 +1,52 @@
+{% extends 'layout/base_layout.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+
+        Restaurants
+
+    </h2>
+
+    <div class="row g-4">
+
+        {% for restaurant in restaurants %}
+
+        <div class="col-md-4 search-item">
+
+            <div class="card h-100">
+
+                {% if restaurant.restaurant_image %}
+
+                <img src="{{ restaurant.restaurant_image.url }}" class="card-img-top">
+
+                {% endif %}
+
+                <div class="card-body d-flex flex-column search-name">
+
+                    <h4>{{ restaurant.name }}</h4>
+                    <p>{{ restaurant.address }}</p>
+
+                    <div class="mt-auto">
+
+                        <a href="{% url 'restaurant_detail' restaurant.id %}" class="btn btn-primary">
+                            Visit
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

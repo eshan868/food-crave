@@ -3,9 +3,8 @@ from .models import Cart, cart_items, Order
 from restaurants.models import food_items
 from accounts.models import User
 from food_crave.utils import calculate_distance
-from delivery.models import DeliveryAssignment
 import random
-
+from decimal import Decimal
 
 
 
@@ -58,13 +57,21 @@ def checkout(request):
         )
 
         total += item.subtotal  
+    delivery_charge = 40
+    gst = total * Decimal('0.05')
+    grand_total = total + delivery_charge + gst
+
+
 
     return render(
         request,
         'orders/checkout.html',
         {
             'items': items,
-            'total': total
+            'total': total,
+            'delivery_charge': delivery_charge,
+            'gst': gst,
+            'grand_total': grand_total,
         }
     )
 

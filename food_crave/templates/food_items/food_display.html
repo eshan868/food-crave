@@ -1,14 +1,62 @@
-        <h1>best food for best day </h1>
+{% extends 'layout/base_layout.html' %}
 
-        {% for food in foods %}
-            <img src="{{food.food_image.url}}" >
-            <h2>{{ food.food_name }}</h2>
-            <p>₹{{ food.price }}</p>
-            <form action="{% url 'add_to_cart' %}" method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                <input type="hidden" name="food_id" value="{{food.id}}">
-                <input type="number" name="quantity" value="1">
-            <button type="submit">Add to cart</button>
-            </form>
+{% block content %}
 
-        {% endfor %}
+<div class="container mt-4">
+
+  <div class="row">
+
+    {% for food in foods %}
+
+    <div class="col-md-4 mb-4 search-item">
+
+      <div class="card h-100 shadow-sm">
+
+        <img src="{{ food.food_image.url }}" class="card-img-top" style="height:220px; object-fit:cover;"
+          alt="food-img">
+
+        <div class="card-body d-flex flex-column">
+
+          <h5 class="card-title search-name">
+            {{ food.food_name }}
+          </h5>
+
+          <p class="text-success fw-bold">
+            ₹{{ food.price }}
+          </p>
+
+          <a href="{% url 'food_detail' food.id %}" class="btn btn-outline-primary mb-2">
+            View Details
+          </a>
+
+          <form action="{% url 'add_to_cart' %}" method="POST" class="mt-auto">
+
+            {% csrf_token %}
+
+            <input type="hidden" name="food_id" value="{{ food.id }}">
+
+            <div class="input-group mb-2">
+
+              <input type="number" name="quantity" value="1" min="1" class="form-control">
+
+              <button type="submit" class="btn btn-warning">
+                Add to Cart
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {% endfor %}
+
+  </div>
+
+</div>
+
+{% endblock %}

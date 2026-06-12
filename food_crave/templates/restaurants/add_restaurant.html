@@ -1,28 +1,86 @@
-<form method="POST" enctype="multipart/form-data">
+{% extends 'layout/base_layout.html' %}
 
-    {% csrf_token %}
+{% block content %}
 
-    {{ form.as_p }}
-    <input type="hidden"name="latitude"id="latitude">
-    <input type="hidden"name="longitude"id="longitude">
+<div class="container mt-5">
 
-    <button type="submit">
-        Add Restaurant
-    </button>
+    <div class="row justify-content-center">
 
-</form>
+        <div class="col-md-8">
 
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        Add Restaurant
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <input
+                            type="hidden"
+                            name="latitude"
+                            id="latitude">
+
+                        <input
+                            type="hidden"
+                            name="longitude"
+                            id="longitude">
+
+                        <div class="text-end">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                                Add Restaurant
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
-navigator.geolocation.getCurrentPosition(function(position){
+navigator.geolocation.getCurrentPosition(
 
-    document.getElementById("latitude").value =
-    position.coords.latitude;
+    function(position){
 
-    document.getElementById("longitude").value =
-    position.coords.longitude;
+        document.getElementById(
+            "latitude"
+        ).value =
+        position.coords.latitude;
 
-});
+        document.getElementById(
+            "longitude"
+        ).value =
+        position.coords.longitude;
+
+    }
+
+);
 
 </script>
+
+{% endblock %}

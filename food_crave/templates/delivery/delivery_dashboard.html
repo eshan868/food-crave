@@ -1,147 +1,457 @@
-<button id="start-duty">Go Online</button>
+{% extends 'layout/base_layout.html' %}
 
-<button id="stop-duty">Go Offline</button>
+{% block content %}
 
-{% for assignment in assignments %}
+<div class="container-fluid mt-4">
 
-<div style="border:1px solid black;padding:15px;margin:15px;">
+    <div class="row">
 
-    <h3>Order #{{ assignment.order.id }}</h3>
+        <!-- SIDEBAR -->
 
-    <p>
-        Customer:
-        {{ assignment.customer.username }}
-    </p>
+        <div class="col-lg-3">
 
-    <p>
-        Status:
-        {{ assignment.status }}
-    </p>
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
 
-      <p>Delivery Earnings: ₹{{ assignment.delivery_fee }}</p>
+                    <h5>
+                        Analytics
+                    </h5>
 
-    {% if assignment.status == 'placed' %}
-    <a href="{% url 'accept_order' assignment.id %}">
-        Accept Order
-    </a>
-    {% endif %}
+                    <hr>
 
-    {% if assignment.status == 'accepted' %}
+                    <p>
+                        💰 Today's Earnings
+                    </p>
 
-<a href="{% url 'picked_order' assignment.id %}">
-    Picked Up
-</a>
+                    <h4 class="text-success">
+                        ₹{{ today_earnings }}
+                    </h4>
 
-{% endif %}
+                    <hr>
 
-{% if assignment.status == 'picked' %}
+                    <p>
+                        📦 Completed Orders
+                    </p>
 
-<form method="POST"
-      action="{% url 'verify_otp' assignment.id %}">
+                    <h4>
+                        {{ completed_orders }}
+                    </h4>
 
-    {% csrf_token %}
+                    <hr>
 
-    <input
-        type="text"
-        name="otp"
-        placeholder="Enter OTP">
+                    <p>
+                        ⭐ Rating
+                    </p>
 
-    <button type="submit">
-        Verify OTP
-    </button>
+                    <h4>
+                        4.8
+                    </h4>
 
-</form>
-
-{% endif %}
-    
-
-{% if assignment.status == 'accepted' %}
-
-<a target="_blank"
-href="https://www.google.com/maps/dir//{{ assignment.restaurant.address }}">
-    Navigate To Restaurant
-</a>
-
-{% endif %}
+                </div>
+            </div>
 
 
-{% if assignment.status == 'picked' %}
 
-<a target="_blank"
-href="https://www.google.com/maps/dir//{{ assignment.customer.address }}">
-    Navigate To Customer
-</a>
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
 
-{% endif %}
+                    <h5>
+                        Today's Goal
+                    </h5>
 
+                    <hr>
+
+                    <p>
+                        {{ completed_orders }}/20 Deliveries
+                    </p>
+
+                    <div class="progress">
+
+                        <div class="progress-bar bg-success" {{ progress_percent }}%>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Quick Access
+                    </h5>
+
+                    <hr>
+
+                    <a href="#" class="btn btn-outline-primary w-100 mb-2">
+
+                        New Orders
+
+                    </a>
+
+                    <a href="#" class="btn btn-outline-success w-100 mb-2">
+
+                        Delivery History
+
+                    </a>
+
+                    <a href="#" class="btn btn-outline-dark w-100">
+
+                        Profile
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MAIN CONTENT -->
+
+        <div class="col-lg-9">
+
+            <div class="d-flex justify-content-between mb-4">
+
+                <h2>
+                    Delivery Dashboard
+                </h2>
+                <div class="d-flex align-items-center">
+
+                    <button id="duty-btn" class="btn btn-success">
+
+                        Go Online
+
+                    </button>
+
+                    <span id="status-badge" class="badge bg-danger ms-2">
+
+                        Offline
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% for assignment in assignments %}
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <h4>
+
+                            Order #{{ assignment.id }}
+
+                        </h4>
+
+                        {% if assignment.status == 'placed' %}
+                        <span class="badge bg-warning">
+                            New Order
+                        </span>
+
+                        {% elif assignment.status == 'accepted' %}
+                        <span class="badge bg-primary">
+                            Accepted
+                        </span>
+
+                        {% elif assignment.status == 'picked' %}
+                        <span class="badge bg-info">
+                            Picked Up
+                        </span>
+
+                        {% elif assignment.status == 'delivered' %}
+                        <span class="badge bg-success">
+                            Delivered
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <h5>
+                                Customer
+                            </h5>
+
+                            <p>
+                                {{ assignment.customer.username }}
+                            </p>
+
+                            <p>
+                                {{ assignment.customer.address }}
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <h5>
+                                Restaurant
+                            </h5>
+
+                            <p>
+                                {{ assignment.restaurant.name }}
+                            </p>
+
+                            <p>
+                                {{ assignment.restaurant.address }}
+                            </p>
+
+                            <p>
+
+                                <strong>
+                                    Earnings:
+                                </strong>
+
+                                ₹{{ assignment.delivery_fee }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    {% if assignment.status == 'placed' %}
+
+                    <a href="{% url 'accept_order' assignment.id %}" class="btn btn-primary">
+
+                        Accept Order
+
+                    </a>
+
+                    {% endif %}
+
+                    {% if assignment.status == 'accepted' %}
+
+                    <a href="{% url 'picked_order' assignment.id %}" class="btn btn-warning">
+
+                        Picked Up
+
+                    </a>
+
+                    <a href="https://www.google.com/maps/dir//{{ assignment.restaurant.address }}" target="_blank"
+                        class="btn btn-outline-primary ms-2">
+
+                        Navigate To Restaurant
+
+                    </a>
+
+                    {% endif %}
+
+                    {% if assignment.status == 'picked' %}
+
+                    <form method="POST" action="{% url 'verify_otp' assignment.id %}" class="mt-3">
+
+                        {% csrf_token %}
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <input type="text" name="otp" class="form-control" placeholder="Enter OTP">
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <button type="submit" class="btn btn-success">
+
+                                    Verify OTP
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <a href="https://www.google.com/maps/dir//{{ assignment.customer.address }}" target="_blank"
+                        class="btn btn-outline-success mt-3">
+
+                        Navigate To Customer
+
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="alert alert-info">
+
+                No Orders Assigned
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
 
 </div>
 
-{% empty %}
-
-<h3>No Orders Assigned</h3>
-
-{% endfor %}
-
-
 <script>
-function updateLocation() {
 
-    navigator.geolocation.getCurrentPosition(
 
-        function(position) {
+    let tracking = null;
+    let isOnline = false;
 
-            fetch(
-                "/delivery/update-location/",
-                {
-                    method: "POST",
+    function updateLocation() {
 
-                    headers: {
-                        "Content-Type":
-                        "application/json",
+        navigator.geolocation.getCurrentPosition(
 
-                        "X-CSRFToken":
-                        "{{ csrf_token }}"
-                    },
+            function (position) {
 
-                    body: JSON.stringify({
+                fetch(
+                    "/delivery/update-location/",
+                    {
+                        method: "POST",
 
-                        latitude:
-                        position.coords.latitude,
+                        headers: {
 
-                        longitude:
-                        position.coords.longitude
-                    })
-                }
-            )
+                            "Content-Type":
+                                "application/json",
+
+                            "X-CSRFToken":
+                                "{{ csrf_token }}"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            latitude:
+                                position.coords.latitude,
+
+                            longitude:
+                                position.coords.longitude
+
+                        })
+
+                    }
+
+                );
+
+            },
+
+            function (error) {
+
+                console.log(
+                    "Location Error",
+                    error
+                );
+
+            }
+
+        );
+
+    }
+
+
+    document.getElementById(
+        "duty-btn"
+    ).addEventListener(
+        "click",
+        function () {
+
+            const btn =
+                document.getElementById(
+                    "duty-btn"
+                );
+
+            const badge =
+                document.getElementById(
+                    "status-badge"
+                );
+
+            if (!isOnline) {
+
+                updateLocation();
+
+                tracking = setInterval(
+                    updateLocation,
+                    10000
+                );
+
+                btn.innerText =
+                    "Go Offline";
+
+                btn.classList.remove(
+                    "btn-success"
+                );
+
+                btn.classList.add(
+                    "btn-danger"
+                );
+
+                badge.innerText =
+                    "Online";
+
+                badge.classList.remove(
+                    "bg-danger"
+                );
+
+                badge.classList.add(
+                    "bg-success"
+                );
+
+                isOnline = true;
+
+            }
+
+            else {
+
+                clearInterval(
+                    tracking
+                );
+
+                btn.innerText =
+                    "Go Online";
+
+                btn.classList.remove(
+                    "btn-danger"
+                );
+
+                btn.classList.add(
+                    "btn-success"
+                );
+
+                badge.innerText =
+                    "Offline";
+
+                badge.classList.remove(
+                    "bg-success"
+                );
+
+                badge.classList.add(
+                    "bg-danger"
+                );
+
+                isOnline = false;
+
+            }
 
         }
     );
-}
 
-updateLocation();
 
-setInterval(
-    updateLocation,
-    10000
-);
-let tracking = null;
-
-document.getElementById(
-    "start-duty"
-).onclick = function() {
-
-    tracking = setInterval(
-        updateLocation,
-        10000
-    );
-}
-document.getElementById(
-    "stop-duty"
-).onclick = function() {
-
-    clearInterval(
-        tracking
-    );
-}
 </script>
+
+{% endblock %}

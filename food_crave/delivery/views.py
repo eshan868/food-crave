@@ -6,6 +6,8 @@ from orders.models import Order
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.db.models import Sum
+
 # Create your views here.
 def delivery_dashboard(request):
 
@@ -15,10 +17,29 @@ def delivery_dashboard(request):
     ).exclude(
         status='delivered'
     )
+    completed_orders = Order.objects.filter(
+        delivery_partner=request.user,
+        status='delivered'
+    ).count()
+
+    today_earnings = Order.objects.filter(
+        delivery_partner=request.user,
+        status='delivered'
+    ).aggregate(
+        total=Sum('delivery_fee')
+    )['total'] or 0
+
 
 
     
-    return render(request,'delivery/delivery_dashboard.html',{'assignments':assignments})
+    return render(request,'delivery/delivery_dashboard.html',{
+        'assignments':assignments,
+         'completed_orders': completed_orders,
+            'today_earnings': today_earnings,
+            'progress_percent': min(
+                completed_orders * 5,
+                100
+            )})
 
 
 

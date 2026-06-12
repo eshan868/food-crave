@@ -1,0 +1,342 @@
+{% extends 'layout/base_layout.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Restaurant Dashboard
+    </h2>
+
+   
+
+    <div class="row mb-4">
+
+        <div class="col-md-3">
+
+            <div class="card text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Restaurants
+                    </h5>
+
+                    <h2>
+                        {{ total_restaurants }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Foods
+                    </h5>
+
+                    <h2>
+                        {{ total_foods }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Orders
+                    </h5>
+
+                    <h2>
+                        {{ total_orders }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Revenue
+                    </h5>
+
+                    <h2>
+                        ₹{{ revenue }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Pending Orders
+                    </h5>
+
+                    <h2 class="text-warning">
+                        {{ pending_orders }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+                        Delivered Orders
+                    </h5>
+
+                    <h2 class="text-success">
+                        {{ delivered_orders }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="mb-4">
+
+        <a href="{% url 'add-restaurant' %}" class="btn btn-primary">
+
+            Add Restaurant
+
+        </a>
+
+        <a href="{% url 'add-food-item' %}" class="btn btn-success">
+
+            Add Food
+
+        </a>
+
+    </div>
+
+
+
+    <h3 class="mb-3">
+        My Restaurants
+    </h3>
+
+    <div class="row">
+
+        {% for restaurant in restaurants %}
+
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-3 dashboard-card">
+
+                <div class="card-body">
+
+                    <img src="{{ restaurant.restaurant_image.url }}" class="card-img-top">
+
+                    <h5>
+                        {{ restaurant.name }}
+                    </h5>
+
+                    <p>
+                        {{ restaurant.address }}
+                    </p>
+
+                    <a href="{% url 'edit_restaurant' restaurant.id %}" class="btn btn-warning btn-sm">
+
+                        Edit
+
+                    </a>
+
+                    <a href="{% url 'delete_restaurant' restaurant.id %}" class="btn btn-danger btn-sm">
+
+                        Delete
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        {% empty %}
+
+        <p>
+            No restaurants added.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+    <h3 class="mt-5 mb-3">
+        My Foods
+    </h3>
+
+    <div class="row">
+
+        {% for food in foods %}
+
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-3">
+
+                <img src="{{ food.food_image.url }}" class="card-img-top">
+
+                <div class="card-body">
+
+                    <h5>
+                        {{ food.food_name }}
+                    </h5>
+
+                    <p>
+                        ₹{{ food.price }}
+                    </p>
+
+                    <a href="{% url 'edit_food' food.id %}" class="btn btn-warning btn-sm">
+
+                        Edit
+
+                    </a>
+
+                    <a href="{% url 'delete_food' food.id %}" class="btn btn-danger btn-sm">
+
+                        Delete
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        {% empty %}
+
+        <p>
+            No foods available.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <h3 class="mt-5 mb-3">
+        Recent Orders
+    </h3>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Total</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for order in orders %}
+
+                    <tr>
+
+                        <td>
+                            #{{ order.id }}
+                        </td>
+
+                        <td>
+                            {{ order.customer.username }}
+                        </td>
+
+                        <td>
+                            {{ order.status }}
+                        </td>
+
+                        <td>
+                            ₹{{ order.total_price }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4">
+
+                            No Orders Yet
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends 'layout/base_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="hero-section mt-4">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <h1 class="display-4 fw-bold">
+
+                    Craving Something Delicious?
+
+                </h1>
+
+                <p class="lead">
+
+                    Order food from nearby restaurants.
+                    Fast delivery. Fresh food.
+
+                </p>
+
+                <form class="d-flex mt-4">
+
+                    <input class="form-control search-box me-2" placeholder="Search foods...">
+
+                    <button class="btn btn-light">
+
+                        Search
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="col-md-6 text-center">
+
+                <img src="{% static 'images/hero-food.png' %}" class="img-fluid">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="mt-5">
+
+        <h2 class="mb-4">
+
+            Explore Categories
+
+        </h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="card p-4 text-center">
+
+                    🍕
+                    <h5>Pizza</h5>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card p-4 text-center">
+
+                    🍔
+                    <h5>Burger</h5>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card p-4 text-center">
+
+                    🍗
+                    <h5>Chicken</h5>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card p-4 text-center">
+
+                    🍜
+                    <h5>Asian</h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="mt-5">
+
+        <h2>
+
+            Popular Foods
+
+        </h2>
+
+        <div class="row g-4">
+
+            {% for food in foods %}
+
+            <div class="col-md-4">
+
+                <div class="card food-card">
+
+                    <img src="{{ food.food_image.url }}">
+
+                    <div class="card-body">
+
+                        <h5>
+
+                            {{ food.food_name }}
+
+                        </h5>
+
+                        <p>
+
+                            ₹{{ food.price }}
+
+                        </p>
+
+                        <a href="{% url 'food_detail' food.id %}" class="btn btn-primary">
+
+                            View
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+
+    <div class="mt-5">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="card p-4 text-center">
+
+                    🚀
+
+                    <h4>
+
+                        Fast Delivery
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card p-4 text-center">
+
+                    🔥
+
+                    <h4>
+
+                        Fresh Food
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card p-4 text-center">
+
+                    ⭐
+
+                    <h4>
+
+                        Top Restaurants
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="hero-section mt-5">
+
+        <div class="text-center">
+
+            <h2>
+
+                Ready To Order?
+
+            </h2>
+
+            <p>
+
+                Explore restaurants now.
+
+            </p>
+
+            <a href="{% url 'food' %}" class="btn btn-light btn-lg">
+
+                Order Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

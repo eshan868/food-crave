@@ -1,29 +1,123 @@
-<h1>My Orders</h1>
+{% extends 'layout/base_layout.html' %}
 
-{% for order in orders %}
+{% block content %}
 
-<div>
-    <h3>Order #{{ order.id }}</h3>
+<div class="container mt-5">
 
-    <p>Status: {{ order.status }}</p>
+    <h2 class="mb-4">
+        My Orders
+    </h2>
 
-    <p>
-       Delivery Charge:
-       ₹{{ order.delivery_fee }}
-    </p>
+    {% for order in orders %}
 
-    <p>
-        Total:
-        ₹{{ order.total_price|add:order.delivery_fee }}
-    </p>
+    <div class="card shadow-sm mb-4">
 
-   
+        <div class="card-body">
 
-    <p>OTP: {{ order.delivery_otp }}</p>
+            <div class="d-flex justify-content-between">
+
+                <h4>
+                    Order #{{ order.id }}
+                </h4>
+
+                {% if order.status == 'placed' %}
+                <span class="badge bg-warning">
+                    Placed
+                </span>
+
+                {% elif order.status == 'accepted' %}
+                <span class="badge bg-primary">
+                    Accepted
+                </span>
+
+                {% elif order.status == 'picked' %}
+                <span class="badge bg-info">
+                    Picked Up
+                </span>
+
+                {% elif order.status == 'delivered' %}
+                <span class="badge bg-success">
+                    Delivered
+                </span>
+
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p>
+                        <strong>Restaurant:</strong>
+                        {{ order.restaurant.name }}
+                    </p>
+
+                    <p>
+                        <strong>Delivery Charge:</strong>
+                        ₹{{ order.delivery_fee|floatformat:2 }}
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p>
+                        <strong>Food Total:</strong>
+                        ₹{{ order.total_price|floatformat:2 }}
+                    </p>
+
+                    <p>
+                        <strong>Grand Total:</strong>
+                        ₹{{ order.total_price|add:order.delivery_fee|floatformat:2 }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% if order.status != 'delivered' %}
+
+            <div class="alert alert-warning mt-3">
+
+                <strong>Delivery OTP:</strong>
+                {{ order.delivery_otp }}
+
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-success mt-3">
+
+                Order Delivered Successfully
+
+            </div>
+
+            {% endif %}
+
+            <small class="text-muted">
+
+                Ordered on:
+                {{ order.created_at }}
+
+            </small>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="alert alert-info">
+
+        No orders found.
+
+    </div>
+
+    {% endfor %}
+
 </div>
 
-{% empty %}
-
-<p>No orders found.</p>
-
-{% endfor %}
+{% endblock %}

@@ -17,6 +17,12 @@ class food_items_form(ModelForm):
             'food_image',
             
         ]
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 class Restaurant_form(ModelForm):
     class Meta:
@@ -27,3 +33,12 @@ class Restaurant_form(ModelForm):
             'address',
             'restaurant_image'
         ]
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+
+            field.widget.attrs.update({
+                'class': 'form-control'
+            })
