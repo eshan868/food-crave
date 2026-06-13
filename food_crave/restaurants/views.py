@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .forms import food_items_form,Restaurant_form
 from .models import Restaurant,food_items
 from orders.models import Order
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def restaurant_dashboard(request):
     restaurants = Restaurant.objects.filter(
         owner=request.user
@@ -57,7 +58,7 @@ def restaurant_dashboard(request):
     )
 
     
-
+@login_required
 def add_food(request):
 
     if request.method == 'POST':
@@ -76,6 +77,7 @@ def add_food(request):
 
     return render(request,'restaurants/add_food.html',{'form': form})
 
+@login_required
 def add_restaurant(request):
 
     if request.method == 'POST':
@@ -155,7 +157,7 @@ def restaurant_detail(request, id):
 
     return render(request,'restaurants/restaurant_detail.html',{'restaurant': restaurant, 'foods': foods})
 
-
+@login_required
 def edit_restaurant(request, restaurant_id):
 
     restaurant = get_object_or_404(Restaurant,id=restaurant_id,owner=request.user)
@@ -183,7 +185,7 @@ def edit_restaurant(request, restaurant_id):
         )
 
     return render(request,'restaurants/edit_restaurant.html', {'form': form})
-
+@login_required
 def delete_restaurant(request, restaurant_id):
 
     restaurant = get_object_or_404(
@@ -195,7 +197,7 @@ def delete_restaurant(request, restaurant_id):
     restaurant.delete()
 
     return redirect('restaurant-owner-dashboard')
-
+@login_required
 def edit_food(request, food_id):
 
     food = get_object_or_404(
@@ -228,7 +230,7 @@ def edit_food(request, food_id):
 
     return render(request,'restaurants/edit_food.html',{'form': form})
 
-
+@login_required
 def delete_food(request, food_id):
 
     food = get_object_or_404(

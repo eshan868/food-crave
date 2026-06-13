@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from accounts import views
+import accounts.views as views
 from restaurants import views as restaurants
 from django.conf import settings
 from django.conf.urls.static import static

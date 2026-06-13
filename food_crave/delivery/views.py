@@ -7,8 +7,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def delivery_dashboard(request):
 
     
@@ -44,7 +46,7 @@ def delivery_dashboard(request):
 
 
 
-
+@login_required
 def new_orders(request):
 
     orders = Order.objects.filter(
@@ -56,7 +58,7 @@ def new_orders(request):
 
 
 
-
+@login_required
 def accept_order(request, order_id):
 
     order = get_object_or_404(
@@ -75,7 +77,7 @@ def accept_order(request, order_id):
 
     order.save()
     return redirect('delivery-man-dashboard')
-
+@login_required
 def picked_order(request, order_id):
 
     order = get_object_or_404(
@@ -88,7 +90,7 @@ def picked_order(request, order_id):
     order.save()
 
     return redirect('delivery-man-dashboard')
-
+@login_required
 def verify_otp(request, order_id):
 
     assignment = get_object_or_404(
@@ -105,7 +107,7 @@ def verify_otp(request, order_id):
         assignment.order.save()
 
     return redirect('delivery-man-dashboard')
-
+@login_required
 @csrf_exempt
 def update_location(request):
 

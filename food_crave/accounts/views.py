@@ -1,14 +1,18 @@
 from django.shortcuts import render,redirect
 from . forms import register_user,Login,EditProfile
 from django.contrib.auth import authenticate ,login as authlogin,logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request): 
 
     return render(request,'home.html')
+
+@login_required
 def profile(request):
     user =request.user
 
     return render(request,'accounts/profile.html',{'user_data':user })
+@login_required
 def edit_profile(request):
 
     if request.method == "POST":
@@ -81,7 +85,7 @@ def login(request):
             if user is not None:
                 authlogin(request,user)
                 if user.role == 'customer':
-                    return redirect('customer-dashboard')
+                    return redirect('food')
                 if user.role == 'delivery_man':
                     return redirect('delivery-man-dashboard')
                 if user.role == 'restaurant_owner':
@@ -102,11 +106,8 @@ def login(request):
       
     return render(request,'accounts/login.html',{'form':form})
 
-def customer_dashboard(request):
 
-    return render(request,'user/user_dashboard.html')
-
-
+@login_required
 def  user_logout(request):
     logout(request)
 

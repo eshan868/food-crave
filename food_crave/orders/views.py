@@ -5,9 +5,10 @@ from accounts.models import User
 from food_crave.utils import calculate_distance
 import random
 from decimal import Decimal
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required
 def cart(request):
 
     if not request.user.is_authenticated:
@@ -34,7 +35,7 @@ def cart(request):
         }
     )
 
-
+@login_required
 def checkout(request):
 
     if not request.user.is_authenticated:
@@ -77,7 +78,7 @@ def checkout(request):
 
 
 
-
+@login_required
 def place_order(request):
 
     if request.method != 'POST':
@@ -159,7 +160,7 @@ def place_order(request):
     items.delete()
     return redirect('order_history')
 
-
+@login_required
 def order_history(request):
 
     orders = Order.objects.filter(
@@ -174,7 +175,7 @@ def order_history(request):
         }
     )
 
-
+@login_required
 def add_to_cart(request):
 
     if request.method == 'POST':
@@ -232,7 +233,7 @@ def add_to_cart(request):
 
     return redirect('home')
 
-
+@login_required
 def remove_from_cart(request, item_id):
 
     if not request.user.is_authenticated:

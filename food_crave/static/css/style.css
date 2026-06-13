@@ -1,5 +1,4 @@
 :root {
-
     --primary-orange: #ff6b00;
     --secondary-orange: #ff8c42;
     --light-orange: #fff5ee;
@@ -7,293 +6,166 @@
     --white: #ffffff;
     --dark-text: #222222;
     --gray-text: #666666;
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-
-    background-color: var(--light-orange);
-
+    background: var(--light-orange);
     color: var(--dark-text);
-
     font-family: 'Segoe UI', sans-serif;
-
 }
 
 .navbar {
-
-    background-color: var(--primary-orange) !important;
-
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-
+    background: var(--primary-orange) !important;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, .12);
 }
 
 .navbar-brand {
-
     color: white !important;
-
-    font-weight: 700;
-
     font-size: 1.8rem;
-
+    font-weight: 700;
 }
 
 .nav-link {
-
     color: white !important;
-
     font-weight: 500;
-
 }
 
 .nav-link:hover {
-
-    color: #ffe3d1 !important;
-
+    color: #ffe2cf !important;
 }
 
 .dropdown-menu {
-
     border: none;
-
-    border-radius: 12px;
-
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-
+    border-radius: 14px;
 }
 
 .dropdown-item:hover {
+    background: #fff0e6;
+}
 
-    background-color: var(--light-orange);
-
-    color: var(--primary-orange);
-
+.logo-img {
+    height: 55px;
 }
 
 .card {
-
     border: none;
-
-    border-radius: 18px;
-
+    border-radius: 20px;
     overflow: hidden;
-
     background: white;
-
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-
-    transition: all 0.3s ease;
-
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    transition: .3s;
 }
 
 .card:hover {
-
-    transform: translateY(-6px);
-
-    box-shadow: 0 10px 25px rgba(255, 107, 0, 0.25);
-
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(255, 107, 0, .18);
 }
 
 .card img {
-
-    height: 220px;
-
+    width: 100%;
+    height: 230px;
     object-fit: cover;
-
 }
 
 .card-title {
-
     font-weight: 700;
+}
 
+.food-card,
+.restaurant-card,
+.dashboard-card {
+    height: 100%;
 }
 
 .btn-primary,
 .btn-success {
-
-    background-color: var(--primary-orange);
-
+    background: var(--primary-orange);
     border-color: var(--primary-orange);
-
 }
 
 .btn-primary:hover,
 .btn-success:hover {
-
-    background-color: #e55f00;
-
-    border-color: #e55f00;
-
+    background: #e55f00;
 }
 
 .btn-warning {
-
-    background-color: #ffb020;
-
+    background: #ffbc42;
     border: none;
-
 }
 
 .btn-danger {
-
-    background-color: #ff4d4d;
-
     border: none;
-
 }
 
 .btn-outline-primary {
-
-    border-color: var(--primary-orange);
-
     color: var(--primary-orange);
-
+    border-color: var(--primary-orange);
 }
 
 .btn-outline-primary:hover {
-
-    background-color: var(--primary-orange);
-
-    color: white;
-
+    background: var(--primary-orange);
 }
 
 .form-control {
-
-    border-radius: 10px;
-
+    border-radius: 12px;
     border: 2px solid #ddd;
-
 }
 
 .form-control:focus {
-
     border-color: var(--primary-orange);
-
-    box-shadow:
-        0 0 0 0.2rem rgba(255, 107, 0, .20);
-
+    box-shadow: 0 0 0 .2rem rgba(255, 107, 0, .2);
 }
 
 .analytics-card {
-
     background:
         linear-gradient(135deg,
             #ff6b00,
-            #ff9b50);
+            #ff9d4d);
 
     color: white;
-
-    border-radius: 18px;
-
 }
 
 .table {
-
     background: white;
-
     border-radius: 15px;
-
-    overflow: hidden;
-
 }
 
 .table thead {
-
     background: var(--primary-orange);
-
     color: white;
-
-}
-
-.dashboard-card {
-
-    height: 100%;
-
-}
-
-.food-card {
-
-    height: 100%;
-
-}
-
-.food-card img {
-
-    height: 220px;
-
-    object-fit: cover;
-
-}
-
-.restaurant-card {
-
-    height: 100%;
-
-}
-
-.restaurant-card img {
-
-    height: 220px;
-
-    object-fit: cover;
-
 }
 
 .badge-status {
-
     background: var(--primary-orange);
-
     color: white;
 
-    padding: 6px 12px;
+    padding: 8px 14px;
 
-    border-radius: 20px;
-
+    border-radius: 30px;
 }
 
 .checkout-box {
-
     background: white;
 
-    border-radius: 15px;
-
-    padding: 20px;
-
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-
-}
-
-.order-card {
-
-    border-left: 5px solid var(--primary-orange);
-
-}
-
-.logo-img {
-
-    height: 60px;
-
-    width: auto;
-
-}
-
-footer {
-
-    background: white;
+    border-radius: 18px;
 
     padding: 25px;
 
-    text-align: center;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .08);
+}
 
-    margin-top: 40px;
-
-    border-top: 3px solid var(--primary-orange);
-
+.order-card {
+    border-left: 6px solid var(--primary-orange);
 }
 
 .hero-section {
-
     background:
         linear-gradient(135deg,
             #ff6b00,
@@ -301,93 +173,91 @@ footer {
 
     color: white;
 
-    border-radius: 20px;
+    border-radius: 24px;
 
     padding: 60px;
-
 }
 
 .search-box {
-
     border-radius: 50px;
-
-}
-
-.text-orange {
-
-    color: var(--primary-orange);
-
-}
-
-.bg-orange {
-
-    background-color: var(--primary-orange);
-
-}
-
-.border-orange {
-
-    border-color: var(--primary-orange) !important;
-
 }
 
 .search-item {
-
-    transition:
-        all .4s ease;
-
-    opacity: 1;
-
-    transform:
-        scale(1);
-
+    transition: .35s;
 }
 
 .hide-card {
-
     opacity: 0;
 
     transform:
-        scale(.95);
-
-    pointer-events: none;
+        scale(.9);
 
     display: none;
-
 }
 
-.container {
+.text-orange {
+    color: var(--primary-orange);
+}
 
-    min-height: 80vh;
+.bg-orange {
+    background: var(--primary-orange);
+}
+
+.border-orange {
+    border-color: var(--primary-orange) !important;
+}
+
+footer {
+    background: white;
+
+    margin-top: 60px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border-top:
+        3px solid var(--primary-orange);
+}
+
+/* PROFILE PAGE ONLY */
+
+.profile-container {
+
+    min-height: 85vh;
 
     display: flex;
 
     align-items: center;
 
+    justify-content: center;
+
 }
 
 .profile-card {
 
-    border: none;
+    width: 100%;
 
-    border-radius: 25px;
+    max-width: 700px;
+
+    padding: 40px;
 
     background: white;
 
+    border-radius: 25px;
+
     box-shadow:
-        0 10px 35px rgba(255, 107, 0, .15);
-
-    transition: .3s;
-
-}
-
-.profile-card:hover {
-
-    transform: translateY(-4px);
+        0 12px 35px rgba(255, 107, 0, .15);
 
 }
 
 .profile-card h1 {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+    color: var(--primary-orange);
 
     font-weight: 700;
 
@@ -401,13 +271,11 @@ footer {
 
 .profile-card label {
 
-    font-weight: 600;
-
-    color: #444;
+    display: block;
 
     margin-bottom: 8px;
 
-    display: block;
+    font-weight: 600;
 
 }
 
@@ -419,26 +287,11 @@ footer {
 
     width: 100%;
 
+    padding: 14px;
+
     border-radius: 12px;
 
     border: 2px solid #ececec;
-
-    padding: 12px;
-
-}
-
-.profile-card input:focus,
-
-.profile-card textarea:focus,
-
-.profile-card select:focus {
-
-    border-color: #ff6b00;
-
-    box-shadow:
-        0 0 0 .2rem rgba(255, 107, 0, .15);
-
-    outline: none;
 
 }
 
@@ -448,12 +301,22 @@ footer {
 
 }
 
-.profile-card .helptext {
+.profile-card input:focus,
 
-    display: none;
+.profile-card textarea:focus,
+
+.profile-card select:focus {
+
+    border-color: var(--primary-orange);
+
+    box-shadow:
+        0 0 0 .2rem rgba(255, 107, 0, .15);
+
+    outline: none;
 
 }
 
+.profile-card .helptext,
 .profile-card ul {
 
     display: none;
@@ -462,10 +325,12 @@ footer {
 
 .profile-card .btn {
 
-    height: 52px;
+    width: 100%;
+
+    height: 54px;
 
     border-radius: 14px;
 
-    font-size: 18px;
+    margin-top: 15px;
 
 }
