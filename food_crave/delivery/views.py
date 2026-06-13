@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . models import DeliveryAssignment
+from .models import DeliveryAssignment
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from orders.models import Order
@@ -9,104 +9,89 @@ import json
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 @login_required
 def delivery_dashboard(request):
 
-    
-    assignments = Order.objects.filter(
-        delivery_partner=request.user
-    ).exclude(
-        status='delivered'
+    assignments = Order.objects.filter(delivery_partner=request.user).exclude(
+        status="delivered"
     )
     completed_orders = Order.objects.filter(
-        delivery_partner=request.user,
-        status='delivered'
+        delivery_partner=request.user, status="delivered"
     ).count()
 
-    today_earnings = Order.objects.filter(
-        delivery_partner=request.user,
-        status='delivered'
-    ).aggregate(
-        total=Sum('delivery_fee')
-    )['total'] or 0
+    today_earnings = (
+        Order.objects.filter(
+            delivery_partner=request.user, status="delivered"
+        ).aggregate(total=Sum("delivery_fee"))["total"]
+        or 0
+    )
 
-
-
-    
-    return render(request,'delivery/delivery_dashboard.html',{
-        'assignments':assignments,
-         'completed_orders': completed_orders,
-            'today_earnings': today_earnings,
-            'progress_percent': min(
-                completed_orders * 5,
-                100
-            )})
-
-
+    return render(
+        request,
+        "delivery/delivery_dashboard.html",
+        {
+            "assignments": assignments,
+            "completed_orders": completed_orders,
+            "today_earnings": today_earnings,
+            "progress_percent": min(completed_orders * 5, 100),
+        },
+    )
 
 
 @login_required
 def new_orders(request):
 
-    orders = Order.objects.filter(
-        delivery_partner=None,
-        status='placed'
-    )
+    orders = Order.objects.filter(delivery_partner=None, status="placed")
 
-    return render(request, 'delivery/new_orders.html', { 'orders': orders})
-
+    return render(request, "delivery/new_orders.html", {"orders": orders})
 
 
 @login_required
 def accept_order(request, order_id):
 
-    order = get_object_or_404(
-        Order,
-        id=order_id
-    )
+    order = get_object_or_404(Order, id=order_id)
 
     if order.delivery_partner:
-        return redirect(
-            'new_orders'
-        )
+        return redirect("new_orders")
 
     order.delivery_partner = request.user
 
-    order.status = 'accepted'
+    order.status = "accepted"
 
     order.save()
-    return redirect('delivery-man-dashboard')
+    return redirect("delivery-man-dashboard")
+
+
 @login_required
 def picked_order(request, order_id):
 
-    order = get_object_or_404(
-        Order,
-        id=order_id,
-        delivery_partner=request.user
-    )
+    order = get_object_or_404(Order, id=order_id, delivery_partner=request.user)
 
-    order.status = 'picked'
+    order.status = "picked"
     order.save()
 
-    return redirect('delivery-man-dashboard')
+    return redirect("delivery-man-dashboard")
+
+
 @login_required
 def verify_otp(request, order_id):
 
     assignment = get_object_or_404(
-        DeliveryAssignment,
-        order_id=order_id,
-        delivery_man=request.user
+        DeliveryAssignment, order_id=order_id, delivery_man=request.user
     )
 
-    entered_otp = request.POST.get('otp')
+    entered_otp = request.POST.get("otp")
 
     if entered_otp == assignment.order.delivery_otp:
 
-        assignment.order.status = 'delivered'
+        assignment.order.status = "delivered"
         assignment.order.save()
 
-    return redirect('delivery-man-dashboard')
+    return redirect("delivery-man-dashboard")
+
+
 @login_required
 @csrf_exempt
 def update_location(request):
@@ -120,10 +105,6 @@ def update_location(request):
 
         request.user.save()
 
-        return JsonResponse({
-            "success": True
-        })
+        return JsonResponse({"success": True})
 
-    return JsonResponse({
-        "success": False
-    })
+    return JsonResponse({"success": False})

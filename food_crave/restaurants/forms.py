@@ -10,35 +10,31 @@ class food_items_form(ModelForm):
         model = food_items
 
         fields = [
-            'restaurant',
-            'food_name',
-            'description',
-            'price',
-            'food_image',
-            
+            "restaurant",
+            "food_name",
+            "description",
+            "price",
+            "food_image",
         ]
+
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
 
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs["class"] = "form-control"
+
 
 class Restaurant_form(ModelForm):
     class Meta:
         model = Restaurant
 
-        fields = [
-            'shop_name',
-            'address',
-            'restaurant_image'
-        ]
+        fields = ["shop_name", "address", "restaurant_image"]
+
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
 
         for field in self.fields.values():
 
-            field.widget.attrs.update({
-                'class': 'form-control'
-            })
+            field.widget.attrs.update({"class": "form-control"})
