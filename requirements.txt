@@ -4,7 +4,9 @@ charset-normalizer==3.4.7
 Django==6.0.5
 geographiclib==2.1
 geopy==2.4.1
+gunicorn==26.0.0
 idna==3.18
+packaging==26.2
 pillow==12.2.0
 psycopg2==2.9.12
 razorpay==2.0.1
