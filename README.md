@@ -116,15 +116,21 @@ http://127.0.0.1:8000
 
 ## Preview
 
+Home page
 
+<img src="food_crave\static\images\home_page.jpeg" width="300">
 
+Restaurant Dashboard
 
+<img src="food_crave\static\images\restaurant_dashboard.jpeg" width="300">
 
+Delivery Dashboard
 
+<img src="food_crave\static\images\deliver_dashboard.jpeg" width="300">
 
+Food Display
 
-
-
+<img src="food_crave\static\images\food_display.jpeg" width="300">
 
 
 
