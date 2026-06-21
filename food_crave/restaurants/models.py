@@ -13,7 +13,7 @@ class Restaurant(models.Model):
 
     shop_name = models.CharField(max_length=100)
     address = models.TextField()
-    restaurant_image = models.ImageField(upload_to="media/restaurant_images/")
+    restaurant_image = models.ImageField(upload_to="restaurant_images/")
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
@@ -28,7 +28,7 @@ class food_items(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     food_image = models.ImageField(
-        upload_to="media/food_images/", null=True, blank=True
+        upload_to="food_images/", null=True, blank=True
     )
 
     def __str__(self):

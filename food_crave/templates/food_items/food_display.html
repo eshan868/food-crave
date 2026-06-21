@@ -11,9 +11,10 @@
     <div class="col-md-4 mb-4 search-item">
 
       <div class="card h-100 shadow-sm">
-
+      {% if food.food_image %}
         <img src="{{ food.food_image.url }}" class="card-img-top" style="height:220px; object-fit:cover;"
           alt="food-img">
+        {% endif %}
 
         <div class="card-body d-flex flex-column">
 
