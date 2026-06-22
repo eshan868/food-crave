@@ -17,7 +17,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=15)
     address = models.TextField()
     profile_picture = models.ImageField(
-        upload_to="media/profile_pictures/", blank=True, null=True
+        upload_to="profile_pictures/", blank=True, null=True
     )
     latitude = models.FloatField(null=True, blank=True)
 
