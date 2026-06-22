@@ -1,0 +1,57 @@
+# Vercel Web Analytics Implementation
+
+Successfully implemented Vercel Web Analytics for this Django project.
+
+## Changes Made
+
+### Modified Files:
+- `templates/layout/base_layout.html` - Added Vercel Analytics script tag
+
+## Implementation Details
+
+Since this is a Django project (not a JavaScript framework), I followed the HTML script tag approach as documented in the official Vercel Analytics documentation:
+
+1. **Fetched Latest Documentation**: Retrieved the current implementation instructions from:
+   - https://vercel.com/docs/analytics/quickstart
+   - https://vercel.com/docs/analytics/package
+
+2. **Identified Framework**: Confirmed this is a Django project which requires the HTML script tag method rather than the npm package `@vercel/analytics`.
+
+3. **Added Analytics Script**: Added the following script tag to the `<head>` section of `templates/layout/base_layout.html`:
+   ```html
+   <!-- Vercel Web Analytics -->
+   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+   ```
+
+4. **Verified Coverage**: Confirmed that 19 templates extend `base_layout.html`, ensuring analytics will be tracked across all pages of the application including:
+   - Home page
+   - User accounts (login, register, profile, edit profile)
+   - Delivery dashboard and orders
+   - Food items (display, detail)
+   - Restaurant pages
+   - Orders (cart, checkout, history)
+   - And more
+
+## Why This Approach
+
+- **Framework Compatibility**: Django is a Python framework, so the JavaScript npm package `@vercel/analytics` is not applicable.
+- **Official Documentation**: The Vercel docs specifically mention the script tag approach for HTML-based implementations.
+- **CDN Delivery**: Using `https://cdn.vercel-insights.com/v1/script.js` ensures the analytics script is always up-to-date and cached efficiently.
+- **Defer Loading**: The `defer` attribute ensures the script doesn't block page rendering.
+
+## Next Steps
+
+Once this code is deployed to Vercel:
+
+1. Enable Web Analytics in your Vercel project dashboard
+2. Navigate to the Analytics tab in your project
+3. The script will automatically begin collecting page view data
+4. You can verify the implementation by checking the browser's Network tab for requests to `/_vercel/insights/*`
+
+## Notes
+
+- No package.json modifications were needed (this is a Python/Django project)
+- No build dependencies were added
+- The implementation is minimal and non-invasive
+- All existing functionality is preserved
+- The script loads asynchronously and won't affect page performance
