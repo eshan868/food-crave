@@ -253,7 +253,7 @@
 
                     {% if assignment.status == 'picked' %}
 
-                    <form method="POST" action="{% url 'verify_otp' assignment.id %}" class="mt-3">
+                    <form method="POST"action="{% url 'verify_otp' assignment.order.id %}">
 
                         {% csrf_token %}
 
