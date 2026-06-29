@@ -45,8 +45,8 @@ def register(request):
             user = form.save(commit=False)
             latitude = request.POST.get("latitude")
             longitude = request.POST.get("longitude")
-            user.latitude = latitude
-            user.longitude = longitude
+            user.latitude = float(latitude) if latitude else None
+            user.longitude = float(longitude) if longitude else None
             user.set_password(form.cleaned_data["password"])
 
             user.save()
