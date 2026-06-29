@@ -6,44 +6,53 @@
 
 This project is a full-stack food delivery web application developed using django. The platform allows customers to order food online, restauarant owners to manage restaurant and food items, and delivery partners to handle deliveries
 
-## Features 
+##Features
 
 ## Customer
 
 Customers can:
 
-* Resgister
-* Login 
-* Edit profile 
-* Browse restaurants
-* Search foods
-* Add food to cart
-* place orders
-* Track order history 
+Register account
+Login and logout
+Edit profile
+Upload profile picture
+Browse restaurants
+Search food items
+View restaurant details
+Add items to cart
+Update cart quantity
+Checkout orders
+Place orders
+View order history
+Track order status
 
-## Restaurant Owner 
+## Restaurant Owner
 
-Restaurant owner can:
+Restaurant owners can:
 
-* Create restaurants
-* Edit restaurant details
-* Add food items
-* Update foods
-* Delete foods
-* Access dashboard
+Create restaurant
+Update restaurant details
+Upload restaurant image
+Add food items
+Edit food details
+Delete food items
+Manage menu
+View customer orders
+Access restaurant dashboard
 
-## Delivery Partner
+##Delivery Partner
 
-Delivery partner can:
+Delivery partners can:
 
-* View available orders
-* Accept delivery
-* Navigate using maps
-* Verify OTP
-* Complete delivery
+Register as delivery partner
+View available deliveries
+Accept delivery requests
+Navigate to destination
+Verify delivery OTP
+Update delivery status
+Complete delivery
 
-
-## Workflow 
+## Order Workflow
 
 Customer
 
@@ -53,7 +62,7 @@ Browse Restaurants
 
 ↓
 
-View Foods
+View Food Items
 
 ↓
 
@@ -73,17 +82,48 @@ Restaurant Receives Order
 
 ↓
 
-Delivery Assigned
+Delivery Partner Accepts Order
 
 ↓
 
-Delivered
+OTP Verification
 
-## Installation 
+↓
 
-Clone repository:
+Order Delivered
 
-git clone https://github.com/your-username/food-crave.git
+## Tech Stack
+
+Backend:
+
+Django
+
+Database:
+
+PostgreSQL (Neon)
+
+Media Storage:
+
+Cloudinary
+
+Hosting:
+
+Vercel
+
+Static Files:
+
+WhiteNoise
+
+Frontend:
+
+HTML
+CSS
+JavaScript
+
+## Installation
+
+Clone Repository
+git clone https://github.com/eshan868/food-crave.git
 
 Move into project:
 
@@ -93,18 +133,33 @@ Create virtual environment:
 
 python -m venv venv
 
-Activate:
+Activate environment:
 
 Windows:
+
 venv\Scripts\activate
 
-Install requirements:
+Install dependencies:
 
 pip install -r requirements.txt
+
+Configure environment variables:
+
+SECRET_KEY=<your_secret_key>
+
+DATABASE_URL=<your_database_url>
+
+CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
+CLOUDINARY_API_KEY=<cloudinary_api_key>
+CLOUDINARY_API_SECRET=<cloudinary_api_secret>
 
 Apply migrations:
 
 python manage.py migrate
+
+Collect static files:
+
+python manage.py collectstatic
 
 Run server:
 
