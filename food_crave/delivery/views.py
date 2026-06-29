@@ -75,22 +75,24 @@ def picked_order(request, order_id):
     return redirect("delivery-man-dashboard")
 
 
+
 @login_required
 def verify_otp(request, order_id):
 
-    assignment = get_object_or_404(
-        DeliveryAssignment, order_id=order_id, delivery_man=request.user
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+        delivery_partner=request.user
     )
 
     entered_otp = request.POST.get("otp")
 
-    if entered_otp == assignment.order.delivery_otp:
+    if str(entered_otp).strip() == str(order.delivery_otp).strip():
 
-        assignment.order.status = "delivered"
-        assignment.order.save()
+        order.status = "delivered"
+        order.save()
 
     return redirect("delivery-man-dashboard")
-
 
 @login_required
 @csrf_exempt
