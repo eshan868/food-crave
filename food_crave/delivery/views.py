@@ -79,16 +79,18 @@ def picked_order(request, order_id):
 @login_required
 def verify_otp(request, order_id):
 
+    if request.method != "POST":
+        return redirect("delivery-man-dashboard")
+
     order = get_object_or_404(
         Order,
         id=order_id,
         delivery_partner=request.user
     )
 
-    entered_otp = request.POST.get("otp")
+    entered_otp = request.POST.get("otp", "").strip()
 
-    if str(entered_otp).strip() == str(order.delivery_otp).strip():
-
+    if entered_otp and entered_otp == str(order.delivery_otp):
         order.status = "delivered"
         order.save()
 
@@ -102,8 +104,8 @@ def update_location(request):
 
         data = json.loads(request.body)
 
-        request.user.latitude = data.get("latitude")
-        request.user.longitude = data.get("longitude")
+        request.user.latitude = data.get("latitude") or None
+        request.user.longitude = data.get("longitude") or None
 
         request.user.save()
 
