@@ -54,6 +54,7 @@ def add_food(request):
 
         if form.is_valid():
             form.save()
+            return redirect("restaurant-owner-dashboard")
 
     else:
         form = food_items_form()
@@ -82,7 +83,7 @@ def add_restaurant(request):
             restaurant.save()
 
             print("Restaurant Created")
-            redirect("restaurant-owner-dashboard")
+            return redirect("restaurant-owner-dashboard")
 
     else:
         form = Restaurant_form()
