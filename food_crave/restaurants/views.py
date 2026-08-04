@@ -75,9 +75,6 @@ def add_restaurant(request):
 
             restaurant.owner = request.user
 
-            restaurant.latitude = request.POST.get("latitude")
-
-            restaurant.longitude = request.POST.get("longitude")
 
             print(request.POST)
             restaurant.save()

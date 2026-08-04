@@ -14,8 +14,7 @@ class Restaurant(models.Model):
     shop_name = models.CharField(max_length=100)
     address = models.TextField()
     restaurant_image = models.ImageField(upload_to="restaurant_images/")
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
+    
 
     def __str__(self):
         return self.shop_name
