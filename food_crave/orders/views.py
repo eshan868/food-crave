@@ -70,42 +70,48 @@ def place_order(request):
         return redirect("checkout")
 
     cart = Cart.objects.get(customer=request.user)
-
     items = cart.cart_items_set.all()
 
     if not items.exists():
         return redirect("cart")
 
-    total = 0
-
-    for item in items:
-
-        total += item.quantity * item.food_item.price
+    total = sum(item.quantity * item.food_item.price for item in items)
 
     restaurant = items.first().food_item.restaurant
+
     nearest_delivery_man = None
     minimum_distance = float("inf")
 
-    delivery_mans = User.objects.filter(role="delivery_man")
-
-    for rider in delivery_mans:
-
-        if (
-            rider.latitude is None
-            or rider.longitude is None
-            or restaurant.latitude is None
-            or restaurant.longitude is None
-        ):
-            continue
-
-    distance = calculate_distance(
-        restaurant.latitude, restaurant.longitude, rider.latitude, rider.longitude
+    # Check if restaurant has valid coordinates
+    restaurant_has_location = (
+        restaurant.latitude is not None and
+        restaurant.longitude is not None
     )
 
-    if distance < minimum_distance:
+    if restaurant_has_location:
+        delivery_mans = User.objects.filter(role="delivery_man")
 
-        minimum_distance = distance
-        nearest_delivery_man = rider
+        for rider in delivery_mans:
+
+            
+            if rider.latitude is None or rider.longitude is None:
+                continue
+
+            try:
+                distance = calculate_distance(
+                    restaurant.latitude,
+                    restaurant.longitude,
+                    rider.latitude,
+                    rider.longitude,
+                )
+
+                if distance < minimum_distance:
+                    minimum_distance = distance
+                    nearest_delivery_man = rider
+
+            except Exception:
+                
+                continue
 
     order = Order.objects.create(
         customer=request.user,
@@ -113,18 +119,16 @@ def place_order(request):
         total_price=total,
         delivery_fee=150,
         status="placed",
+        delivery_otp=str(random.randint(100000, 999999)),
     )
+
     if nearest_delivery_man:
-
         order.delivery_man = nearest_delivery_man
-
-    order.delivery_otp = str(random.randint(100000, 999999))
-
-    order.save()
+        order.save()
 
     items.delete()
-    return redirect("order_history")
 
+    return redirect("order_history")
 
 @login_required
 def order_history(request):
