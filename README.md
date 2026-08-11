@@ -138,3 +138,13 @@ Follow these steps to build run the website on your local machine.
 8. Open the website in your browser:
 
    http://127.0.0.1:8000/
+
+## License
+ 
+This is open-source software licensed under the **MIT License**.
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and sell copies of this software, subject to the terms of the MIT License.
+
+Copyright © 2026 **Muhammed Eshan P**
+
+See the [LICENSE](LICENSE) file for the complete license.
